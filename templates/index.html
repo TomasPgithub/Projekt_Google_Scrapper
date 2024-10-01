@@ -3,50 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask Aplikace</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Vyhledávání</title>
 </head>
 <body>
-    <div class="container">
-        <h1 class="mt-5">Přihlášení</h1>
-        
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <div class="alert alert-warning" role="alert">
-              {{ messages[0] }}
-            </div>
-          {% endif %}
-        {% endwith %}
-        
-        <form method="POST">
-            <div class="form-group">
-                <label for="username">Uživatelské jméno:</label>
-                <input type="text" class="form-control" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Heslo:</label>
-                <input type="password" class="form-control" name="password" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Přihlásit se</button>
-        </form>
-
-        {% if session['username'] %}
-            <h2 class="mt-5">Vyhledávání</h2>
-            <form method="POST">
-                <div class="form-group">
-                    <label for="query">Hledat:</label>
-                    <input type="text" class="form-control" name="query" required>
-                </div>
-                <button type="submit" class="btn btn-success">Hledat</button>
-            </form>
-            <h3 class="mt-5">Výsledky hledání:</h3>
-            <ul>
-                {% for result in results %}
-                    <li><a href="{{ result }}" target="_blank">{{ result }}</a></li>
-                {% endfor %}
-            </ul>
-            <a href="{{ url_for('logout') }}" class="btn btn-danger mt-3">Odhlásit se</a>
-        {% endif %}
-    </div>
+    <h1>Hledání na Googlu</h1>
+    <form action="/" method="POST">
+        <input type="text" name="query" placeholder="Zadejte dotaz" required>
+        <button type="submit">Hledat</button>
+    </form>
+    
+    {% if results %}
+        <h2>Výsledky hledání:</h2>
+        <ul>
+            {% for link in results %}
+                <li><a href="{{ link }}">{{ link }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 </body>
 </html>
